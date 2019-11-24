@@ -11,16 +11,26 @@ vue-cal(
 <script>
 import VueCal from '@/components/vue-cal'
 
-const now = new Date()
 export default {
   components: { VueCal },
   data: () => ({
-    selectedDate: now,
+    selectedDate: '2019-01-01',
     events: [
       {
-        startDate: new Date(new Date(now).setHours(9, 0, 0, 0)),
-        endDate: new Date(new Date(now).setHours(12, 0, 0, 0)),
-        title: 'Event'
+        // start: '2019-01-01 00:00',
+        startDate: new Date('2019-01-01T00:00'),
+        // Does Work
+        end: '2019-01-01 24:00',
+
+        // Does not work
+        //  endDate: new Date('2019-01-02T00:00'),
+
+        // Gets converted to the same as directly above; Does not work
+        // endDate: new Date('2019-01-01T24:00'),
+
+        // Does not work
+        // end: '2019-01-02 00:00', // Does not work
+        title: 'FooBar'
       }
     ]
   }),
