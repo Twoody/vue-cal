@@ -1,23 +1,14 @@
 <template lang="pug">
 //- This is an isolated test view. Just for testing purpose.
 div
-  v-btn(@click="selectedDate = new Date()") Select today
-  v-btn(@click="splitDays[1].hide = !splitDays[1].hide") Toggle Doctor 2
-  p {{splitDays}}
+  button(type='button' class='stylin' @click="changeView()") Error Prone
   vue-cal.vuecal--blue-theme(
     :selected-date="selectedDate"
-    events-on-month-view
-    default-view="month"
+    default-view="week"
     :events="events"
-    editable-events
-    :split-days="splitDays"
-    sticky-split-labels
     :time-from="10 * 60"
     :time-to="19 * 60"
-    @cell-focus="log('cell-focus', $event)"
-    @cell-click="log('cell-click', $event)"
-    @cell-dblclick="log('cell-dblclick', $event)"
-    @cell-contextmenu="log('cell-contextmenu', $event)"
+    :hide-weekdays="daysDisplayed"
     style="min-height: 400px;max-height: 65vh")
 </template>
 
@@ -29,12 +20,8 @@ const now = new Date()
 export default {
   components: { VueCal },
   data: () => ({
+    hiddenDays: false,
     selectedDate: now,
-    splitDays: [
-      { id: 'split 1', class: 'doctor1', label: 'Doctor 1', hide: false },
-      { id: 'split 2', class: 'doctor2', label: 'Doctor 2', hide: false },
-      { id: 'split 3', class: 'doctor3', label: 'Doctor 3', hide: false }
-    ],
     events: [
       {
         startDate: now.subtractHours(6),
@@ -51,15 +38,30 @@ export default {
     ]
   }),
 
+  computed: {
+    daysDisplayed () {
+      if (this.hiddenDays) {
+        return [6, 7]
+      }
+      return []
+    }
+  },
   methods: {
     log (...params) {
       console.log(params)
+    },
+    changeView () {
+      this.hiddenDays = !this.hiddenDays
     }
   }
 }
 </script>
 
 <style lang="scss">
+.stylin {
+  background-color: red;
+  font-size: 50px;
+}
 .vuecal__event {
   background-color: rgba(160, 220, 255, 0.5);
   border: 1px solid rgba(0, 100, 150, 0.15);
