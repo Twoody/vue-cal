@@ -6,9 +6,11 @@ div
     :selected-date="selectedDate"
     default-view="week"
     :events="events"
-    :time-from="10 * 60"
-    :time-to="19 * 60"
+    :time-from="8 * 60"
+    :time-to="20 * 60"
     :hide-weekdays="daysDisplayed"
+    hideTitleBar
+    hideViewSelector
     style="min-height: 400px;max-height: 65vh")
 </template>
 
@@ -24,16 +26,14 @@ export default {
     selectedDate: now,
     events: [
       {
-        startDate: now.subtractHours(6),
-        endDate: now.subtractHours(4),
-        title: 'Event 1',
-        split: 'split 1'
+        startDate: now.subtractHours(24),
+        endDate: now.subtractHours(20),
+        title: 'Event 1'
       },
       {
         startDate: now.subtractHours(3),
         endDate: now.subtractHours(1),
-        title: 'Event 2',
-        split: 'split 3'
+        title: 'Event 2'
       }
     ]
   }),
